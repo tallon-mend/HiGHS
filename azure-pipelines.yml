@@ -28,4 +28,6 @@ steps:
   env:
     WS_PROJECTNAME: $(Build.Repository.Name)_$(Build.SourceBranchName)
     WS_PRODUCTNAME: $(Build.Repository.Name)
+    WS_USERKEY: $(WS_USERKEY)
+    WS_APIKEY: $(WS_APIKEY)
   displayName: 'Run UA'
