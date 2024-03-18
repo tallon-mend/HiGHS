@@ -24,7 +24,7 @@ steps:
     mend version
   displayName: 'Verifying the Scanners'
 
-- script: java -jar wss-unified-agent.jar
+- script: java -jar UA.jar
   env:
     WS_PROJECTNAME: $(Build.Repository.Name)_$(Build.SourceBranchName)
     WS_PRODUCTNAME: $(Build.Repository.Name)
