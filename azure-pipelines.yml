@@ -31,4 +31,7 @@ steps:
     WS_PRODUCTNAME: $(Build.Repository.Name)
     WS_USERKEY: $(WS_USERKEY)
     WS_APIKEY: $(WS_APIKEY)
+    WS_LOG_LEVEL: "DEBUG"
+    WS_SHOWPROGRESSBAR: false
   displayName: 'Run UA'
+
