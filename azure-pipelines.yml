@@ -35,3 +35,11 @@ steps:
     WS_SHOWPROGRESSBAR: false
   displayName: 'Run UA'
 
+- script: mend dep --update --scope "$(Build.Repository.Name)//$(Build.SourceBranchName)" --non-interactive
+  env:
+    MEND_USER_KEY: $(WS_USERKEY)
+    MEND_EMAIL: $(MEND_EMAIL)
+    MEND_URL: $(MEND_URL)
+    MEND_LOG_LEVEL: "DEBUG"
+  displayName: 'Run CLI'
+
