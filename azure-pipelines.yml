@@ -38,7 +38,7 @@ steps:
 - script: pip install .
   displayName: 'Build Dep for CLI'
 
-- script: mend dep --update --scope "$(Build.Repository.Name)//$(Build.SourceBranchName)" --non-interactive
+- script: mend dep --update --scope "$(Build.Repository.Name)//$(Build.SourceBranchName)" --non-interactive -e
   env:
     MEND_USER_KEY: $(WS_USERKEY)
     MEND_EMAIL: $(MEND_EMAIL)
