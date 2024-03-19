@@ -35,6 +35,9 @@ steps:
     WS_SHOWPROGRESSBAR: false
   displayName: 'Run UA'
 
+- script: pip install .
+  displayName: 'Build Dep for CLI'
+
 - script: mend dep --update --scope "$(Build.Repository.Name)//$(Build.SourceBranchName)" --non-interactive
   env:
     MEND_USER_KEY: $(WS_USERKEY)
