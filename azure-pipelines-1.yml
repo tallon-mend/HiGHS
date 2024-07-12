@@ -10,7 +10,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+- script: |
+    printenv
+  displayName: 'Check Variables'
+
 - task: WhiteSource@21
   inputs:
     cwd: '$(System.DefaultWorkingDirectory)'
-    projectName: 'TestProjectName'
+    projectName: 'ThisNameAlreadyExists'
+
+- script: |
+    printenv
+  displayName: 'Check Variables Part 2'
