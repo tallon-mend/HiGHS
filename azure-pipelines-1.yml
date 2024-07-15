@@ -18,8 +18,4 @@ steps:
 - task: WhiteSource@21
   inputs:
     cwd: '$(System.DefaultWorkingDirectory)'
-    projectName: 'ThisNameAlreadyExists'
-
-- script: |
-    printenv
-  displayName: 'Check Variables Part 2'
+    projectName: '$(Build.DefinitionName)'
