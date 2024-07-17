@@ -19,3 +19,4 @@ steps:
   inputs:
     cwd: '$(System.DefaultWorkingDirectory)'
     projectName: '$(Build.DefinitionName)'
+    logLevel: "DEBUG"
