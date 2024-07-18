@@ -11,12 +11,13 @@ pool:
 
 steps:
 
-- script: |
-    printenv
-  displayName: 'Check Variables'
-
 - task: WhiteSource@21
   inputs:
     cwd: '$(System.DefaultWorkingDirectory)'
     projectName: '$(Build.DefinitionName)'
     logLevel: "DEBUG"
+    configuration: 
+
+- script: |
+    printenv $WS_INCLUDES
+  displayName: 'Check Includes Variables'
