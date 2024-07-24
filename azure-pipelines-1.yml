@@ -11,16 +11,11 @@ pool:
 
 steps:
 
-# - task: WhiteSource@21
-#   inputs:
-#     cwd: '$(System.DefaultWorkingDirectory)'
-#     projectName: '$(Build.DefinitionName)'
-#     logLevel: "DEBUG"
-#     configuration: 
-
-- script: |
-    printenv $WS_INCLUDES
-  displayName: 'Check Includes Variables'
+- task: WhiteSource@21
+  inputs:
+    cwd: '$(System.DefaultWorkingDirectory)'
+    projectName: '$(Build.DefinitionName)'
+    logLevel: "DEBUG"
 
 - task: PowerShell@2
   inputs:
@@ -37,7 +32,7 @@ steps:
         }
       $jsonPayload = $payload | ConvertTo-Json
       $responseProjToken = Invoke-RestMethod -Uri $(AP_URL) -Method Post -Body $jsonPayload -Headers $headers
-      $projectToken = $responseProjToken.projectVitals.Where({$_.name -eq "$(ProjectName)"}).token
+      $projectToken = $responseProjToken.projectVitals.Where({$_.name -eq "$(Build.DefinitionName)"}).token
 
       Write-Output $responseProjToken
 
