@@ -37,7 +37,10 @@ steps:
         }
       $jsonPayload = $payload | ConvertTo-Json
       $responseProjToken = Invoke-RestMethod -Uri $(AP_URL) -Method Post -Body $jsonPayload -Headers $headers
-      $projectToken = $responseProjToken.projectVitals.Where({$_.name -eq "$(Build.DefinitionName)"}).token
+      $projectToken = $responseProjToken.projectVitals.Where({$_.name -eq "$(ProjectName)"}).token
+
+      Write-Output $responseProjToken
+
       $payloadBuildTag = @{
         "requestType" = "saveProjectTag"
         "userKey" = "$(AP_USERKEY)"
