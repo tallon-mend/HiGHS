@@ -25,6 +25,34 @@ steps:
 - task: PowerShell@2
   inputs:
     script: |
-      Get-ChildItem env: | Sort Name
-
+      $headers = @{ 
+        "Content-Type" = "application/json" 
+        "Charset" = "UTF-8"
+        }
+      $payload = @{
+        "requestType" = "getOrganizationProjectVitals"
+        "userKey" = "$AP_USERKEY"
+        "orgToken" = "$AP_APIKEY"
+        }
+      $jsonPayload = $payload | ConvertTo-Json
+      $responseProjToken = Invoke-RestMethod -Uri "$AP_URL" -Method Post -Body $jsonPayload -Headers $headers
+      $projectToken = $responseProjToken.projectVitals.Where({$_.name -eq "$(Build.DefinitionName)"}).token
+      $payloadBuildTag = @{
+        "requestType" = "saveProjectTag"
+        "userKey" = $userKey
+        "projectToken" = $projectToken
+        "tagKey" = "BuildURLKey"
+        "tagValue" = "Build URL Link Here"
+        }
+      $payloadSecTag = @{
+        "requestType" = "saveProjectTag"
+        "userKey" = $userKey
+        "projectToken" = $projectToken
+        "tagKey" = "InfoSecKey"
+        "tagValue" = "Info Sec Tag Value Here"
+        }
+      $jsonPayBuildTag = $payloadBuildTag | ConvertTo-Json
+      $jsonPaySecTag = $payloadSecTag | ConvertTo-Json
+      Invoke-RestMethod -Uri $apiUrl -Method Post -Body $jsonPayBuildTag -Headers $headers
+      Invoke-RestMethod -Uri $apiUrl -Method Post -Body $jsonPaySecTag -Headers $headers
   displayName: 'Powershell Project Tag Script'
