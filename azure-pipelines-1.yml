@@ -32,28 +32,28 @@ steps:
         }
       $payload = @{
         "requestType" = "getOrganizationProjectVitals"
-        "userKey" = "$AP_USERKEY"
-        "orgToken" = "$AP_APIKEY"
+        "userKey" = "$(AP_USERKEY)"
+        "orgToken" = "$(AP_APIKEY)"
         }
       $jsonPayload = $payload | ConvertTo-Json
-      $responseProjToken = Invoke-RestMethod -Uri "$AP_URL" -Method Post -Body $jsonPayload -Headers $headers
+      $responseProjToken = Invoke-RestMethod -Uri $(AP_URL) -Method Post -Body $jsonPayload -Headers $headers
       $projectToken = $responseProjToken.projectVitals.Where({$_.name -eq "$(Build.DefinitionName)"}).token
       $payloadBuildTag = @{
         "requestType" = "saveProjectTag"
-        "userKey" = $userKey
+        "userKey" = "$(AP_USERKEY)"
         "projectToken" = $projectToken
         "tagKey" = "BuildURLKey"
         "tagValue" = "Build URL Link Here"
         }
       $payloadSecTag = @{
         "requestType" = "saveProjectTag"
-        "userKey" = $userKey
+        "userKey" = "$(AP_USERKEY)"
         "projectToken" = $projectToken
         "tagKey" = "InfoSecKey"
         "tagValue" = "Info Sec Tag Value Here"
         }
       $jsonPayBuildTag = $payloadBuildTag | ConvertTo-Json
       $jsonPaySecTag = $payloadSecTag | ConvertTo-Json
-      Invoke-RestMethod -Uri $apiUrl -Method Post -Body $jsonPayBuildTag -Headers $headers
-      Invoke-RestMethod -Uri $apiUrl -Method Post -Body $jsonPaySecTag -Headers $headers
+      Invoke-RestMethod -Uri $(AP_URL) -Method Post -Body $jsonPayBuildTag -Headers $headers
+      Invoke-RestMethod -Uri $(AP_URL) -Method Post -Body $jsonPaySecTag -Headers $headers
   displayName: 'Powershell Project Tag Script'
